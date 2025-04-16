@@ -3,6 +3,7 @@ const morgan = require('morgan');
 
 const app = express();
 
+app.use(express.static('dist'));
 app.use(express.json());
 morgan.token('body', (req, res) => JSON.stringify(req.body));
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'));
@@ -29,10 +30,6 @@ let persons = [
     "number": "39-23-6423122"
   }
 ]
-
-app.get('/', (request, response) => {
-  response.send('<h3>Phonebook server!</h3>')
-})
 
 app.get('/info', (request, response) => {
   response.send(`<p>Phonebook has info for ${persons.length} people</p><p>${new Date()}</p>`)
